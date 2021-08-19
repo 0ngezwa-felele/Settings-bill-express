@@ -33,12 +33,14 @@ module.exports = function SettingsBill() {
         else if (action === 'call' && !hasReachedCriticalLevel()){
             cost = callCost;
         }
+        if(cost != 0){
+            actionList.push({
+                type: action,
+                cost,
+                timestamp: new Date()
+            }) 
+        }
 
-        actionList.push({
-            type: action,
-            cost,
-            timestamp: new Date()
-        });
     }
 
     function actions(){

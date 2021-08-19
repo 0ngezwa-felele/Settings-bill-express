@@ -58,10 +58,13 @@ app.post('/action', function(req, res){
     
 })
 app.get('/actions', function(req, res){
-   
-    res.render('actions', {actions:settingsBill2.actions()});
+   const totalsMade  = settingsBill2.actions()
+   totalsMade.forEach((element)=>{
+       element.currentTime = moment(element.timestamp).fromNow()
+   });
+    res.render('actions',{actions:totalsMade})
     
-})
+});
 
 // app.get('/actions/:actionType', function(req, res){
 //     const actionType = req.params.actionType;
@@ -69,12 +72,14 @@ app.get('/actions', function(req, res){
     
 // })
 app.get('/actions/:actionType', function(req, res){
+    const type= req.params.actionType
     const actions =settingsBill2.actions()
-    actions.forEach(elem => {
-        elem.timestamp = moment(elem.timestamps).fromNow()})
-        const type= req.params.actionType
+    actions.forEach((elem )=> {
+        elem.timescamp = moment(elem.timestamps).fromNow()
+    })
+        
    
-    res.render('actions', {actions:settingsBill2.actionsFor(type)});
+    res.render('actions', {action:actions});
 
 
 })
